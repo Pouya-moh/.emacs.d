@@ -1,0 +1,184 @@
+* Requirements
+Packages from melpa should be automatically downloaded, thanks to
+use-package. There are however, couple of packages and snippets which
+are not in any package repository. They need to be downloaded manually
+first. Ideally, I want these stuff to be bootstraped like the rest
+with some magic. Here is the list of stuff that need to be downloaded
+manually first:
+
+** ispell (osx only)
+Install ispell by ~brew install ispell --with-lang-en~ (taken from
+[[https://unix.stackexchange.com/a/84514/56144][this]] page).
+** personal material theme
+
+** move-lines
+~git clone https://github.com/targzeta/move-lines.git~ and also don't
+forget to add correct path down below.
+
+** more?
+
+
+* Global emacs configurations
+** GUI
+
+X-Bars
+#+BEGIN_SRC emacs-lisp
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  (show-paren-mode 1)
+#+END_SRC
+
+Deafult startup directory
+#+BEGIN_SRC emacs-lisp
+  (setq default-directory "/tmp/")
+#+END_SRC
+
+For detecting new lines, add the following otherwise text or tex or similar wouldn't navigate to the
+EOL but rather to end of the paragraph.
+#+BEGIN_SRC emacs-lisp
+  (setq sentence-end-double-space nil)
+#+END_SRC
+
+** Window navigation
+#+BEGIN_SRC emacs-lisp
+  (windmove-default-keybindings 'meta)
+#+END_SRC
+
+** buffer menu
+Use ibuffer with shortcut similar to sublime
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-S-p") 'ibuffer)
+
+#+END_SRC
+
+** move-lines
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/etc/move-lines")
+  (require 'move-lines)
+  (global-set-key (kbd "<C-S-up>") 'move-lines-up)
+  (global-set-key (kbd "<C-S-down>") 'move-lines-down)
+#+END_SRC
+
+** tab-size
+#+BEGIN_SRC emacs-lisp
+  ;(setq tab-width 4) ; or any other preferred value
+  ;(defvaralias 'c-basic-offset 'tab-width)
+  ;(defvaralias 'cperl-indent-level 'tab-width)
+#+END_SRC
+
+** duplicate line
+#+BEGIN_SRC emacs-lisp
+  ; duplicate line. JESUS FUCKING CHRIST EMACS :/
+  (defun duplicate-line()
+    (interactive)
+    (move-beginning-of-line 1)
+    (kill-line)
+    (yank)
+    (open-line 1)
+    (next-line 1)
+    (yank)
+  )
+  (global-set-key (kbd "C-S-d") 'duplicate-line)
+#+END_SRC
+
+** ispell
+(macos only)
+#+BEGIN_SRC emacs-lisp
+  (if (eq system-type 'darwin)
+      (setq ispell-program-name "/usr/local/Cellar/ispell/3.4.00/bin/ispell")
+  )
+#+END_SRC
+
+** themeing
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'custom-theme-load-path "~/.emacs.d/etc/yamt-theme")
+  (load-theme 'yamt)
+#+END_SRC
+
+
+* Important packages
+** Magit
+#+BEGIN_SRC emacs-lisp
+  (use-package magit
+    :ensure t)
+#+END_SRC
+
+** Auctex
+Some info regarding auctex and use-package [[https://github.com/jwiegley/use-package/issues/379#issuecomment-246161500][here]] and [[https://github.com/jwiegley/use-package/issues/379#issuecomment-258217014][here]].
+#+BEGIN_SRC emacs-lisp
+  (use-package tex
+    :defer t
+    :ensure auctex
+    :config
+    (setq TeX-auto-save t)
+    (setq TeX-error-overview-open-after-TeX-run t)
+    ;(local-set-key [C-tab] 'TeX-complete-symbol)
+  )
+#+END_SRC
+
+** Bibtex
+For reindent and pretty printing the bib items
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'bibtex-mode-hook
+    (lambda ()
+      (setq fill-column 999999)
+      (setq bibtex-align-at-equal-sign t)
+      (setq fill-prefix nil)
+      (local-set-key (kbd "M-q") 'bibtex-fill-entry)
+    )
+  )
+#+END_SRC
+
+Snippet below attempts to download bib items from a doi but needs further work ([[https://www.anghyflawn.net/blog/2014/emacs-give-a-doi-get-a-bibtex-entry/][source]]).
+#+BEGIN_SRC emacs-lisp
+  (defun get-bibtex-from-doi (doi)
+   "Get a BibTeX entry from the DOI"
+   (interactive "MDOI: ")
+   (let ((url-mime-accept-string "text/bibliography;style=bibtex"))
+     (with-current-buffer 
+       (url-retrieve-synchronously 
+	 (format "http://dx.doi.org/%s" 
+	  (replace-regexp-in-string "http://dx.doi.org/" "" doi)))
+       (switch-to-buffer (current-buffer))
+       (goto-char (point-max))
+       (setq bibtex-entry 
+	    (buffer-substring 
+		  (string-match "@" (buffer-string))
+		(point)))
+       (kill-buffer (current-buffer))))
+   (insert (decode-coding-string bibtex-entry 'utf-8))
+   (bibtex-fill-entry))
+#+END_SRC
+
+** multiple-cursor
+#+BEGIN_SRC emacs-lisp
+  (use-package multiple-cursors
+    :ensure t
+    :bind (("C-d" . mc/mark-next-like-this)
+	   ("C-S-l" . mc/edit-lines)
+	  )
+  )
+#+END_SRC
+
+** expand-region
+#+BEGIN_SRC emacs-lisp
+  (use-package expand-region
+    :ensure t
+    :bind (("C-=" . er/expand-region))
+  )
+#+END_SRC
+
+
+
+
+** try
+#+BEGIN_SRC emacs-lisp
+  (use-package try
+    :ensure t)
+#+END_SRC
+
+** which key
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :ensure t)
+#+END_SRC
