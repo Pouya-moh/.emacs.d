@@ -170,7 +170,6 @@ Snippet below attempts to download bib items from a doi but needs further work (
 
 
 
-
 ** try
 #+BEGIN_SRC emacs-lisp
   (use-package try
@@ -180,5 +179,7 @@ Snippet below attempts to download bib items from a doi but needs further work (
 ** which key
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
-    :ensure t)
+    :ensure t
+    :config (which-key-mode)
+  )
 #+END_SRC
