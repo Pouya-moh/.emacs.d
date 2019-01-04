@@ -5,8 +5,8 @@
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")))
 
-;(package-initialize)
-(unless package--initialized (package-initialize t))
+(package-initialize)
+;(unless package--initialized (package-initialize t))
 
 ;; (thanks to https://github.com/daedreth)
 ;; Bootstrapping use-package 
