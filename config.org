@@ -19,7 +19,7 @@ forget to add correct path down below.
 
 
 * Global emacs configurations
-** GUI
+** Interface
 
 X-Bars
 #+BEGIN_SRC emacs-lisp
