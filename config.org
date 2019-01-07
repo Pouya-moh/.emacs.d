@@ -33,6 +33,11 @@ Deafult startup directory
   (setq default-directory "/tmp/")
 #+END_SRC
 
+Shortcut for `ffap`
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "s-f") 'ffap)
+#+END_SRC
+
 For detecting new lines, add the following otherwise text or tex or similar wouldn't navigate to the
 EOL but rather to end of the paragraph.
 #+BEGIN_SRC emacs-lisp
