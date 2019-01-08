@@ -182,8 +182,6 @@ Snippet below attempts to download bib items from a doi but needs further work (
   )
 #+END_SRC
 
-
-
 ** try
 #+BEGIN_SRC emacs-lisp
   (use-package try
