@@ -12,11 +12,13 @@
 ;; Bootstrapping use-package 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
-(package-install 'use-package))
+  (package-install 'use-package))
+
+;; custom stuff. Moved them befor the rest of config so to solve the problem of themeing
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
+
 
 ;;; This is the actual config file. It is omitted if it doesn't exist so emacs won't refuse to launch.
 (when (file-readable-p "~/.emacs.d/config.org")
   (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
-
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
