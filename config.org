@@ -201,5 +201,14 @@ Snippet below attempts to download bib items from a doi but needs further work (
 rainbow-mode and maybe (in the future) rainbow brackets
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-mode
-    :ensure t)
+    :ensure t
+    :hook prog-mode)
 #+END_SRC 
+** decoration
+Highlight numbers
+#+BEGIN_SRC emacs-lisp
+  (use-package highlight-numbers
+    :ensure t
+    :init
+    (add-hook 'prog-mode-hook 'highlight-numbers-mode))
+#+END_SRC
