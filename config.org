@@ -192,3 +192,9 @@ Snippet below attempts to download bib items from a doi but needs further work (
     :config (which-key-mode)
   )
 #+END_SRC
+** rainbow
+rainbow-mode and maybe (in the future) rainbow brackets
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-mode
+    :ensure t)
+#+END_SRC 
