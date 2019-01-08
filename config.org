@@ -44,6 +44,11 @@ EOL but rather to end of the paragraph.
   (setq sentence-end-double-space nil)
 #+END_SRC
 
+Set cursor as bar
+#+BEGIN_SRC emacs-lisp
+  (setq-default cursor-type 'bar)
+#+END_SRC
+
 ** Window navigation
 #+BEGIN_SRC emacs-lisp
   (windmove-default-keybindings 'meta)
