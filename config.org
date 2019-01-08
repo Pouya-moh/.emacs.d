@@ -30,7 +30,7 @@ X-Bars
 
 Deafult startup directory
 #+BEGIN_SRC emacs-lisp
-  (setq default-directory "/tmp/")
+  (setq default-directory "~/.emacs.d/")
 #+END_SRC
 
 Shortcut for `ffap`
