@@ -221,3 +221,8 @@ I really like this. It is fast and rather helpfull when writing text, e.g., Late
   (eval-after-load 'completion-ui
     '(define-key completion-overlay-map "\t" 'completion-accept))
 #+END_SRC
+** Org mode stuff
+Syntax highlighting for code blocks:
+#+BEGIN_SRC emacs-lisp
+  (setq org-src-fontify-natively t)
+#+END_SRC
