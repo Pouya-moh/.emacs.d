@@ -208,3 +208,16 @@ Highlight numbers
     :init
     (add-hook 'prog-mode-hook 'highlight-numbers-mode))
 #+END_SRC
+** Predictive mode
+I really like this. It is fast and rather helpfull when writing text, e.g., Latex, but it is paint to install. If it is installed, then I like to use the following shortcuts. [[http://www.dr-qubit.org/predictive/predictive-user-manual/predictive-user-manual.pdf][Manual]]
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/predictive")
+  (add-to-list 'load-path "~/.emacs.d/predictive/misc")
+  (add-to-list 'load-path "~/.emacs.d/predictive/latex")
+  (add-to-list 'load-path "~/.emacs.d/predictive/texinfo")
+  (add-to-list 'load-path "~/.emacs.d/predictive/html")
+  (setq completion-ui-use-echo nil)
+  (require 'predictive)
+  (eval-after-load 'completion-ui
+    '(define-key completion-overlay-map "\t" 'completion-accept))
+#+END_SRC
