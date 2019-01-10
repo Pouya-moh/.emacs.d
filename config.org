@@ -124,6 +124,7 @@ Some info regarding auctex and use-package [[https://github.com/jwiegley/use-pac
     :config
     (setq TeX-auto-save t)
     (setq TeX-error-overview-open-after-TeX-run t)
+    (setq fill-column 100) ; or 80 or whatever
     ;(local-set-key [C-tab] 'TeX-complete-symbol)
   )
 #+END_SRC
