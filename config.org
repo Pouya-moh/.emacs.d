@@ -49,6 +49,11 @@ Set cursor as bar
   (setq-default cursor-type 'bar)
 #+END_SRC
 
+Focus to help window so that after, e.g., ~descrive-variable~, I could hit ~q~ to exit easily:
+#+BEGIN_SRC emacs-lisp
+  (setq help-window-select 1)
+#+END_SRC
+
 ** Window navigation
 #+BEGIN_SRC emacs-lisp
   (windmove-default-keybindings 'meta)
