@@ -28,6 +28,12 @@ X-Bars
   (show-paren-mode 1)
 #+END_SRC
 
+Disable startup screen
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-splash-screen t)
+  (setq inhibit-startup-message t)
+#+END_SRC
+
 Deafult startup directory
 #+BEGIN_SRC emacs-lisp
   (setq default-directory "~/.emacs.d/")
