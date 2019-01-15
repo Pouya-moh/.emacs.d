@@ -266,8 +266,8 @@ Whatever...
   (use-package helm
     :ensure t
     :bind
-    ("C-x C-f" . 'helm-find-files)
-    ("C-x C-b" . 'helm-buffers-list)
+;    ("C-x C-f" . 'helm-find-files)
+;    ("C-x C-b" . 'helm-buffers-list)
     ("M-x" . 'helm-M-x)
     :init
     (helm-mode 1))
