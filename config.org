@@ -263,12 +263,12 @@ Better org bullets:
 ** Helm
 Whatever...
 #+BEGIN_SRC emacs-lisp
-  (use-package helm
-    :ensure t
-    :bind
-;    ("C-x C-f" . 'helm-find-files)
-;    ("C-x C-b" . 'helm-buffers-list)
-    ("M-x" . 'helm-M-x)
-    :init
-    (helm-mode 1))
+    (use-package helm
+      :ensure t
+      :bind
+      ("C-x C-f" . 'helm-find-files)
+      ("C-x C-b" . 'helm-buffers-list) ; C-Up/C-Down
+      ("M-x" . 'helm-M-x)
+      :init
+      (helm-mode 1))
 #+END_SRC
