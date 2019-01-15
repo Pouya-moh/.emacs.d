@@ -243,3 +243,13 @@ Syntax highlighting for code blocks:
 #+BEGIN_SRC emacs-lisp
   (setq org-src-fontify-natively t)
 #+END_SRC
+
+Org agenda configuration:
+#+BEGIN_SRC emacs-lisp
+  ;(setq org-agenda-files (list "~/Work/Agenda/january.org"
+  ;			     "~/Work/Agenda/february.org"
+  ;			     "~/Work/Agenda/march.org"))
+
+  (setq org-agenda-files (quote ("~/Work/Agenda/january.org")))
+#+END_SRC
+
