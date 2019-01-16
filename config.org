@@ -60,6 +60,11 @@ Focus to help window so that after, e.g., ~descrive-variable~, I could hit ~q~ t
   (setq help-window-select 1)
 #+END_SRC
 
+Overwrite/delete selection as you type
+#+BEGIN_SRC emacs-lisp
+  (delete-selection-mode 1)
+#+END_SRC
+
 ** Window navigation
 #+BEGIN_SRC emacs-lisp
   (windmove-default-keybindings 'meta)
