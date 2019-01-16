@@ -262,13 +262,13 @@ Better org bullets:
 #+END_SRC
 ** Helm
 Whatever...
-#+BEGIN_SRC emacs-lisp
-    (use-package helm
-      :ensure t
-      :bind
-      ("C-x C-f" . 'helm-find-files)
-      ("C-x C-b" . 'helm-buffers-list) ; C-Up/C-Down
-      ("M-x" . 'helm-M-x)
-      :init
-      (helm-mode 1))
+#+BEGIN_SRC emacs-lisp :tangle no
+  (use-package helm
+    :ensure t
+    :bind
+    ("C-x C-f" . 'helm-find-files)
+    ("C-x C-b" . 'helm-mini) ; C-Up/C-Down or C-c C-f to make it permanent
+    ("M-x" . 'helm-M-x)
+    :init
+    (helm-mode 1))
 #+END_SRC
