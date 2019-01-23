@@ -65,6 +65,11 @@ Overwrite/delete selection as you type
   (delete-selection-mode 1)
 #+END_SRC
 
+Hilight current line
+#+BEGIN_SRC emacs-lisp
+  (hl-line-mode 1)
+#+END_SRC
+
 ** Window navigation
 #+BEGIN_SRC emacs-lisp
   (windmove-default-keybindings 'meta)
