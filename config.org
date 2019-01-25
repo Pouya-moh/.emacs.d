@@ -67,7 +67,7 @@ Overwrite/delete selection as you type
 
 Hilight current line
 #+BEGIN_SRC emacs-lisp
-  (hl-line-mode 1)
+  (global-hl-line-mode 1)
 #+END_SRC
 
 ** Window navigation
