@@ -284,3 +284,19 @@ Whatever...
     :init
     (helm-mode 1))
 #+END_SRC
+** smartparens
+In the future I will check paredit, but for the moment:
+#+BEGIN_SRC emacs-lisp
+  (use-package smartparens
+    :ensure t
+    ;:diminish smartparens-mode
+    :config
+    (progn
+      (require 'smartparens-config)
+      (show-smartparens-global-mode 1)
+      (smartparens-global-mode 1))
+    ;:bind
+    ;(("bla" . fla-func)
+    ; ("foo" . foo-func))
+    )
+#+END_SRC
