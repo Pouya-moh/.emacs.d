@@ -272,7 +272,6 @@ Whatever...
     (helm-mode 1))
 #+END_SRC
 
-
 ** Predictive mode
 I really like this. It is fast and rather helpfull when writing text, e.g., Latex, but it is paint to install. If it is installed, then I like to use the following shortcuts. [[http://www.dr-qubit.org/predictive/predictive-user-manual/predictive-user-manual.pdf][Manual]]
 #+BEGIN_SRC emacs-lisp
