@@ -307,3 +307,15 @@ In the future I will check paredit, but for the moment:
     ; ("foo" . foo-func))
     )
 #+END_SRC
+** diminish
+This can be done directly with the ~use-package~ but I do it like this:
+#+BEGIN_SRC emacs-lisp
+  (use-package diminish
+    :ensure t
+    :init
+    (diminish 'smartparens-mode)
+    (diminish 'which-key-mode)
+    (diminish 'rainbow-mode)
+    (diminish 'auto-completion-mode)
+    )
+#+END_SRC
