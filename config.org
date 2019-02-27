@@ -320,6 +320,17 @@ This can be done directly with the ~use-package~ but I do it like this:
     )
 #+END_SRC
 
+** pdf-tools
+This one seems interesting. I will see if I can use it with latex...
+#+BEGIN_SRC emacs-lisp
+  (use-package pdf-tools
+    :ensure t
+    ; :pin manual ;; manually update taken from http://pragmaticemacs.com/emacs/more-pdf-tools-tweaks/
+    :config
+    (pdf-tools-install)
+    ; alternatively if it becomes annoying (pdf-loader-install)
+  )
+#+END_SRC
 
 * Useful snippets
 ** word repetition, taken from [[https://www.gnu.org/software/emacs/manual/html_node/eintr/the_002dthe.html][here]]. Although, it's a bit iffy...
