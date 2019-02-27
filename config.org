@@ -320,6 +320,7 @@ This can be done directly with the ~use-package~ but I do it like this:
     )
 #+END_SRC
 
+
 * Useful snippets
 ** word repetition, taken from [[https://www.gnu.org/software/emacs/manual/html_node/eintr/the_002dthe.html][here]]. Although, it's a bit iffy...
 #+BEGIN_SRC emacs-lisp
