@@ -355,3 +355,7 @@ This one seems interesting. I will see if I can use it with latex...
 	(message "Found duplicated word.")
       (message "End of buffer")))
 #+END_SRC
+
+* Packages to be considered
+1. [[https://github.com/gonewest818/dimmer.el][dimmer.el]]
+2. [[https://github.com/mkcms/interactive-align][ialign.el]]
