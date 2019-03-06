@@ -291,6 +291,7 @@ I really like this. It is fast and rather helpfull when writing text, e.g., Late
 	(add-to-list 'load-path "~/.emacs.d/predictive/texinfo")
 	(add-to-list 'load-path "~/.emacs.d/predictive/html")
 	(setq completion-ui-use-echo nil)
+	(setq completion-auto-show nil)
 	(require 'predictive)
 	(eval-after-load 'completion-ui
 	  '(define-key completion-overlay-map "\t" 'completion-accept)))
@@ -355,6 +356,7 @@ This one seems interesting. I will see if I can use it with latex...
 	(message "Found duplicated word.")
       (message "End of buffer")))
 #+END_SRC
+
 
 * Packages to be considered
 1. [[https://github.com/gonewest818/dimmer.el][dimmer.el]]
