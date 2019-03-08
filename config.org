@@ -290,6 +290,7 @@ I really like this. It is fast and rather helpfull when writing text, e.g., Late
 	(add-to-list 'load-path "~/.emacs.d/predictive/latex")
 	(add-to-list 'load-path "~/.emacs.d/predictive/texinfo")
 	(add-to-list 'load-path "~/.emacs.d/predictive/html")
+	(setq predictive-latex-electric-environments 1) ; this one autocompletes envs
 	(setq completion-ui-use-echo nil)
 	(setq completion-auto-show nil)
 	(require 'predictive)
