@@ -127,6 +127,12 @@ Use ibuffer with shortcut similar to sublime
   (load-theme 'yamt)
 #+END_SRC
 
+** activating inactive features
+Narrowing
+#+BEGIN_SRC emacs-lisp
+  (put 'narrow-to-region 'disabled nil)
+#+END_SRC
+
 
 * Important packages
 ** Magit
