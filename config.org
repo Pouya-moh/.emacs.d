@@ -364,6 +364,19 @@ This one seems interesting. I will see if I can use it with latex...
       (message "End of buffer")))
 #+END_SRC
 
+** add some missing articles when proofreading papers
+#+BEGIN_SRC emacs-lisp  :tangle no
+  (defun articlize (txt)
+    "Simply adds 'the' and 'a' to the current word"
+    (forward-word)
+    (backward-word)
+    (insert txt)
+    )
+
+  (global-set-key (kbd "C-S-t") (lambda () (interactive) (articlize "the ")))
+  (global-set-key (kbd "C-S-a") (lambda () (interactive) (articlize "a ")))
+#+END_SRC
+
 
 * Packages to be considered
 1. [[https://github.com/gonewest818/dimmer.el][dimmer.el]]
