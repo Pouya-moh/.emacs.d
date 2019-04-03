@@ -71,6 +71,11 @@ Hilight current line
   (global-hl-line-mode 1)
 #+END_SRC
 
+Wraping, maybe yes, maybe no, have to see...
+#+BEGIN_SRC emacs-lisp
+  (visual-line-mode 1)
+#+END_SRC
+
 ** Window navigation
 #+BEGIN_SRC emacs-lisp
   (windmove-default-keybindings 'meta)
