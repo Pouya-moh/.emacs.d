@@ -352,6 +352,17 @@ This one seems interesting. I will see if I can use it with latex...
   )
 #+END_SRC
 
+** markdown-mode
+   Don't forget to set path to (e.g.) ~pandoc~ in the custom file as shown [[https://stackoverflow.com/a/19740648/811098][here]].
+#+BEGIN_SRC emacs-lisp
+  (use-package markdown-mode
+    :ensure t
+    :mode (("README\\.md\\'" . gfm-mode)
+	   ("\\.md\\'" . markdown-mode)
+	   ("\\.markdown\\'" . markdown-mode))
+    :init (setq markdown-command "multimarkdown"))
+#+END_SRC
+
 
 * Useful snippets
 ** word repetition, taken from [[https://www.gnu.org/software/emacs/manual/html_node/eintr/the_002dthe.html][here]]. Although, it's a bit iffy...
