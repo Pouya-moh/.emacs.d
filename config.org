@@ -366,6 +366,7 @@ This one seems interesting. I will see if I can use it with latex...
 ** wc-mode
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/etc/wc-mode")
+  (require 'wc-mode)
 #+END_SRC
 
 
