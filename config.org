@@ -363,6 +363,11 @@ This one seems interesting. I will see if I can use it with latex...
     :init (setq markdown-command "multimarkdown"))
 #+END_SRC
 
+** wc-mode
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/etc/wc-mode")
+#+END_SRC
+
 
 * Useful snippets
 ** word repetition, taken from [[https://www.gnu.org/software/emacs/manual/html_node/eintr/the_002dthe.html][here]]. Although, it's a bit iffy...
