@@ -76,6 +76,21 @@ Wraping, maybe yes, maybe no, have to see...
   (visual-line-mode 1)
 #+END_SRC
 
+Better change case courtesy of [[https://oremacs.com/2014/12/23/upcase-word-you-silly/][oremacs]].
+#+BEGIN_SRC emacs-lisp
+(defadvice upcase-word (before upcase-word-advice activate)
+  (unless (looking-back "\\b")
+    (backward-word)))
+
+(defadvice downcase-word (before downcase-word-advice activate)
+  (unless (looking-back "\\b")
+    (backward-word)))
+
+(defadvice capitalize-word (before capitalize-word-advice activate)
+  (unless (looking-back "\\b")
+    (backward-word)))
+#+END_SRC
+
 ** Window navigation
 #+BEGIN_SRC emacs-lisp
   (windmove-default-keybindings 'meta)
