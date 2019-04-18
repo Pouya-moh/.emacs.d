@@ -91,6 +91,16 @@ Better change case courtesy of [[https://oremacs.com/2014/12/23/upcase-word-you-
     (backward-word)))
 #+END_SRC
 
+Disable the background color when launching from termial
+#+BEGIN_SRC emacs-lisp 
+  (defun on-after-init ()
+    (unless (display-graphic-p (selected-frame))
+      (set-face-background 'default "unspecified-bg" (selected-frame))))
+
+  (add-hook 'window-setup-hook 'on-after-init)
+#+END_SRC
+
+
 ** Window navigation
 #+BEGIN_SRC emacs-lisp
   (windmove-default-keybindings 'meta)
