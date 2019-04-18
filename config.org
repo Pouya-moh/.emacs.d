@@ -289,7 +289,7 @@ Syntax highlighting for code blocks:
 #+END_SRC
 
 Org agenda configuration:
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   ;(setq org-agenda-files (list "~/Work/Agenda/january.org"
   ;			     "~/Work/Agenda/february.org"
   ;			     "~/Work/Agenda/march.org"))
@@ -319,7 +319,7 @@ Whatever...
 
 ** Predictive mode
 I really like this. It is fast and rather helpfull when writing text, e.g., Latex, but it is paint to install. If it is installed, then I like to use the following shortcuts. [[http://www.dr-qubit.org/predictive/predictive-user-manual/predictive-user-manual.pdf][Manual]]
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (if (eq system-type 'gnu/linux)
       (progn
 	(message "Setting predictive path...")
