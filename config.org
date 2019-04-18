@@ -78,17 +78,18 @@ Wraping, maybe yes, maybe no, have to see...
 
 Better change case courtesy of [[https://oremacs.com/2014/12/23/upcase-word-you-silly/][oremacs]].
 #+BEGIN_SRC emacs-lisp
-(defadvice upcase-word (before upcase-word-advice activate)
-  (unless (looking-back "\\b")
-    (backward-word)))
+  (defadvice upcase-word (before upcase-word-advice activate)
+    (unless (looking-back "\\b" nil)
+      (backward-word)))
 
-(defadvice downcase-word (before downcase-word-advice activate)
-  (unless (looking-back "\\b")
-    (backward-word)))
+  (defadvice downcase-word (before downcase-word-advice activate)
+    (unless (looking-back "\\b" nil)
+      (backward-word)))
 
-(defadvice capitalize-word (before capitalize-word-advice activate)
-  (unless (looking-back "\\b")
-    (backward-word)))
+  (defadvice capitalize-word (before capitalize-word-advice activate)
+    (unless (looking-back "\\b" nil)
+      (backward-word)))
+
 #+END_SRC
 
 Disable the background color when launching from termial
@@ -99,7 +100,6 @@ Disable the background color when launching from termial
 
   (add-hook 'window-setup-hook 'on-after-init)
 #+END_SRC
-
 
 ** Window navigation
 #+BEGIN_SRC emacs-lisp
