@@ -73,7 +73,7 @@ Hilight current line
 
 Wraping, maybe yes, maybe no, have to see...
 #+BEGIN_SRC emacs-lisp
-  (visual-line-mode 1)
+  (global-visual-line-mode 1)
 #+END_SRC
 
 Better change case courtesy of [[https://oremacs.com/2014/12/23/upcase-word-you-silly/][oremacs]].
