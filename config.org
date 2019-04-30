@@ -406,6 +406,13 @@ This one seems interesting. I will see if I can use it with latex...
   (require 'wc-mode)
 #+END_SRC
 
+** auto-gls-mode
+This package automatically adds the glossaries macro to acronyms
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/etc/auto-gls-mode")
+  (require 'auto-gls-mode)
+#+END_SRC
+
 
 * Useful snippets
 ** word repetition, taken from [[https://www.gnu.org/software/emacs/manual/html_node/eintr/the_002dthe.html][here]]. Although, it's a bit iffy...
