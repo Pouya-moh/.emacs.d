@@ -409,8 +409,8 @@ This one seems interesting. I will see if I can use it with latex...
 ** auto-gls-mode
 This package automatically adds the glossaries macro to acronyms
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/etc/auto-gls-mode")
-  (require 'auto-gls-mode)
+  (add-to-list 'load-path "~/.emacs.d/etc/auto-glossaries-mode")
+  (require 'auto-glossaries-mode)
 #+END_SRC
 
 
