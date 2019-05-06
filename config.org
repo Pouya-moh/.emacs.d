@@ -188,7 +188,7 @@ Some info regarding auctex and use-package [[https://github.com/jwiegley/use-pac
     (add-hook 'LaTeX-mode-hook
       (lambda ()
 	(reftex-mode 1)
-	(setq fill-column 100) ; or 80 or whatever
+	(setq fill-column 80) ; or 80 or whatever
       )
     )
     ;; seting up pdf-tools:    
@@ -329,7 +329,7 @@ Whatever...
 
 ** Predictive mode
 I really like this. It is fast and rather helpfull when writing text, e.g., Latex, but it is paint to install. If it is installed, then I like to use the following shortcuts. [[http://www.dr-qubit.org/predictive/predictive-user-manual/predictive-user-manual.pdf][Manual]]
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
   (if (eq system-type 'gnu/linux)
       (progn
 	(message "Setting predictive path...")
@@ -341,6 +341,7 @@ I really like this. It is fast and rather helpfull when writing text, e.g., Late
 	(setq predictive-latex-electric-environments 1) ; this one autocompletes envs
 	(setq completion-ui-use-echo nil)
 	(setq completion-auto-show nil)
+	(setq predictive-learn-from-buffer t)
 	(require 'predictive)
 	(eval-after-load 'completion-ui
 	  '(define-key completion-overlay-map "\t" 'completion-accept)))
@@ -413,6 +414,21 @@ This package automatically adds the glossaries macro to acronyms
   (require 'auto-glossaries-mode)
 #+END_SRC
 
+** company
+I guess I finally decided to go with this one...
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :ensure t
+    :config
+    (setq company-idle-delay 0)
+    (setq company-minimum-prefix-length 2))
+
+  (with-eval-after-load 'company
+    (define-key company-active-map (kbd "M-n") nil)
+    (define-key company-active-map (kbd "M-p") nil)
+    (define-key company-active-map (kbd "C-n") #'company-select-next)
+    (define-key company-active-map (kbd "C-p") #'company-select-previous))
+#+END_SRC
 
 * Useful snippets
 ** word repetition, taken from [[https://www.gnu.org/software/emacs/manual/html_node/eintr/the_002dthe.html][here]]. Although, it's a bit iffy...
