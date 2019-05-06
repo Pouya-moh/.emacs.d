@@ -439,8 +439,13 @@ I will do python using elpy. Documenation at [[https://github.com/jorgenschaefer
     :ensure t
     :defer t
     :init
-    (advice-add 'python-mode :before 'elpy-enable))
+    (advice-add 'python-mode :before 'elpy-enable)
+    :config
+    (setq elpy-rpc-python-command "python3")
+    (setq python-shell-interpreter "ipython"
+	python-shell-interpreter-args "-i --simple-prompt"))
 #+END_SRC
+
 
 * Useful snippets
 ** word repetition, taken from [[https://www.gnu.org/software/emacs/manual/html_node/eintr/the_002dthe.html][here]]. Although, it's a bit iffy...
