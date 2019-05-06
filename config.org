@@ -427,7 +427,19 @@ I guess I finally decided to go with this one...
     (define-key company-active-map (kbd "M-n") nil)
     (define-key company-active-map (kbd "M-p") nil)
     (define-key company-active-map (kbd "C-n") #'company-select-next)
-    (define-key company-active-map (kbd "C-p") #'company-select-previous))
+    (define-key company-active-map (kbd "C-p") #'company-select-previous)
+    (define-key company-active-map (kbd "Tab") #'company-complete-common-or-cycle))
+
+#+END_SRC
+
+** python stuff
+I will do python using elpy. Documenation at [[https://github.com/jorgenschaefer/elpy][github-page]] and [[https://elpy.readthedocs.io/en/latest/ide.html][read-the-docs]].
+#+BEGIN_SRC emacs-lisp
+  (use-package elpy
+    :ensure t
+    :defer t
+    :init
+    (advice-add 'python-mode :before 'elpy-enable))
 #+END_SRC
 
 * Useful snippets
