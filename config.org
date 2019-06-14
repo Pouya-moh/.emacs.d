@@ -171,7 +171,7 @@ Narrowing
     :ensure t)
 #+END_SRC
 
-** Auctex
+** COMMENT Auctex
 Some info regarding auctex and use-package [[https://github.com/jwiegley/use-package/issues/379#issuecomment-246161500][here]] and [[https://github.com/jwiegley/use-package/issues/379#issuecomment-258217014][here]].
 #+BEGIN_SRC emacs-lisp
   (use-package tex
@@ -204,6 +204,10 @@ Some info regarding auctex and use-package [[https://github.com/jwiegley/use-pac
 	  '(display-buffer-reuse-window (reusable-frames . t)))
     (setq pdf-sync-backward-display-action
 	  '(display-buffer-reuse-window (reusable-frames . t)))
+
+    ;; this line allows includegraphics autocompletion to look at local directories
+    ;; of the root for files. more at https://emacs.stackexchange.com/a/14011/19426
+    (setq LaTeX-includegraphics-read-file 'LaTeX-includegraphics-read-file-relative)
   
     ;; shell-escape
     (add-to-list 'safe-local-variable-values
@@ -315,7 +319,7 @@ Better org bullets:
       (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
 #+END_SRC
 ** Helm
-Whatever...
+Lets try again
 #+BEGIN_SRC emacs-lisp :tangle no
   (use-package helm
     :ensure t
@@ -323,8 +327,21 @@ Whatever...
     ("C-x C-f" . 'helm-find-files)
     ("C-x C-b" . 'helm-mini) ; C-Up/C-Down or C-c C-f to make it permanent
     ("M-x" . 'helm-M-x)
+    :config
+    (setq helm-autoresize-max-height 30
+	  helm-autoresize-min-height 20
+	  helm-split-window-in-side-p nil
+	  helm-split-window-inside-p t
+	  helm-M-x-fuzzy-match t
+	  helm-buffers-fuzzy-matching t
+	  helm-recentf-fuzzy-match t
+	  helm-semantic-fuzzy-match t
+	  helm-imenu-fuzzy-match t)
     :init
     (helm-mode 1))
+
+  (helm-autoresize-mode 1)
+  (define-key helm-find-files-map "\t" 'helm-execute-persistent-action)
 #+END_SRC
 
 ** Predictive mode
@@ -398,7 +415,10 @@ This one seems interesting. I will see if I can use it with latex...
     :mode (("README\\.md\\'" . gfm-mode)
 	   ("\\.md\\'" . markdown-mode)
 	   ("\\.markdown\\'" . markdown-mode))
-    :init (setq markdown-command "multimarkdown"))
+    :init
+    ;(setq markdown-command "multimarkdown")
+    (setq markdown-command "/usr/bin/pandoc")  
+    )
 #+END_SRC
 
 ** wc-mode
@@ -474,6 +494,22 @@ I will do python using elpy. Documenation at [[https://github.com/jorgenschaefer
 
   (global-set-key (kbd "C-S-t") (lambda () (interactive) (articlize "the ")))
   (global-set-key (kbd "C-S-a") (lambda () (interactive) (articlize "a ")))
+#+END_SRC
+
+** COMMENT eval and replace thanks to [[https://emacsredux.com/blog/2013/06/21/eval-and-replace/][emacsredux]]
+#+BEGIN_SRC emacs-lisp
+  (defun eval-and-replace ()
+    "Replace the preceding sexp with its value."
+    (interactive)
+    (backward-kill-sexp)
+    (condition-case nil
+	(prin1 (eval (read (current-kill 0)))
+	       (current-buffer))
+      (error (message "Invalid expression")
+	     (insert (current-kill 0)))))
+
+  ;(global-set-key (kbd "C-c e") 'eval-and-replace)
+
 #+END_SRC
 
 
