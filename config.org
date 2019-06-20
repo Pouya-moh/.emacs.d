@@ -171,7 +171,7 @@ Narrowing
     :ensure t)
 #+END_SRC
 
-** COMMENT Auctex
+** Auctex
 Some info regarding auctex and use-package [[https://github.com/jwiegley/use-package/issues/379#issuecomment-246161500][here]] and [[https://github.com/jwiegley/use-package/issues/379#issuecomment-258217014][here]].
 #+BEGIN_SRC emacs-lisp
   (use-package tex
@@ -264,7 +264,9 @@ Snippet below attempts to download bib items from a doi but needs further work (
 #+BEGIN_SRC emacs-lisp
   (use-package expand-region
     :ensure t
-    :bind (("C-=" . er/expand-region))
+    :bind
+    ("C-=" . er/expand-region)
+    ("S-=" . er/mark-inside-pairs)
   )
 #+END_SRC
 
@@ -510,6 +512,15 @@ I will do python using elpy. Documenation at [[https://github.com/jorgenschaefer
 
   ;(global-set-key (kbd "C-c e") 'eval-and-replace)
 
+#+END_SRC
+
+** Complete file names
+Courtesy of [[https://www.emacswiki.org/emacs/CompleteFileName][emacs-wiki]], this helps to complete file names in buffer. Should be called repeatedly thgouh...
+#+BEGIN_SRC emacs-lisp
+  (fset 'my-complete-file-name
+	(make-hippie-expand-function '(try-complete-file-name-partially
+				       try-complete-file-name)))
+  (global-set-key "\M-/" 'my-complete-file-name)
 #+END_SRC
 
 
