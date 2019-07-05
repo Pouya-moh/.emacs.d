@@ -93,7 +93,7 @@ Better change case courtesy of [[https://oremacs.com/2014/12/23/upcase-word-you-
 #+END_SRC
 
 Disable the background color when launching from termial
-#+BEGIN_SRC emacs-lisp 
+#+BEGIN_SRC emacs-lisp :tangle no
   (defun on-after-init ()
     (unless (display-graphic-p (selected-frame))
       (set-face-background 'default "unspecified-bg" (selected-frame))))
@@ -154,7 +154,8 @@ Use ibuffer with shortcut similar to sublime
 ** themeing
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'custom-theme-load-path "~/.emacs.d/etc/yamt-theme")
-  (load-theme 'yamt)
+  ;;(load-theme 'yamt)
+  (load-theme 'doom-vibrant)
 #+END_SRC
 
 ** activating inactive features
@@ -467,6 +468,23 @@ I will do python using elpy. Documenation at [[https://github.com/jorgenschaefer
     (setq python-shell-interpreter "ipython"
 	python-shell-interpreter-args "-i --simple-prompt"))
 #+END_SRC
+
+** doom linemode setup
+First install ~all-the-icons~ by
+#+BEGIN_SRC emacs-lisp
+  (use-package all-the-icons
+    :ensure t)
+#+END_SRC
+then ~M-x all-the-icons-install-fonts~. Finally bootstrap the doom-modeline
+#+BEGIN_SRC emacs-lisp
+  (use-package doom-modeline
+	:ensure t
+	:hook (after-init . doom-modeline-mode)
+	:config
+	(setq doom-modeline-height 15))
+#+END_SRC
+** doom themes
+Maybe it is easier to do ~M-x package-install RET doom-themes~. Further documentation at [[https://github.com/hlissner/emacs-doom-themes][github]] page.
 
 
 * Useful snippets
