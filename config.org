@@ -486,6 +486,15 @@ then ~M-x all-the-icons-install-fonts~. Finally bootstrap the doom-modeline
 ** doom themes
 Maybe it is easier to do ~M-x package-install RET doom-themes~. Further documentation at [[https://github.com/hlissner/emacs-doom-themes][github]] page.
 
+** anzu 
+This package shows the number of search occurances in the modeline
+#+BEGIN_SRC emacs-lisp
+  (use-package anzu
+    :ensure t
+    :config
+    (global-anzu-mode +1))
+#+END_SRC
+
 
 * Useful snippets
 ** word repetition, taken from [[https://www.gnu.org/software/emacs/manual/html_node/eintr/the_002dthe.html][here]]. Although, it's a bit iffy...
