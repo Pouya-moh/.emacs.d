@@ -182,6 +182,7 @@ Some info regarding auctex and use-package [[https://github.com/jwiegley/use-pac
     (setq reftex-plug-into-AUCTeX t)  
     (setq TeX-source-correlate-mode t)
     (setq TeX-source-correlate-method 'synctex)
+    (setq exec-path (append exec-path '("/usr/local/texlive/2018/bin/x86_64-linux")))
     :config
     (setq TeX-auto-save t)
     (setq font-latex-fontify-script nil)
