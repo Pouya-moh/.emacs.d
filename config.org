@@ -536,7 +536,7 @@ I might replace this later with avy because it is maintained and more configurab
   (global-set-key (kbd "C-S-a") (lambda () (interactive) (articlize "a ")))
 #+END_SRC
 
-** COMMENT eval and replace thanks to [[https://emacsredux.com/blog/2013/06/21/eval-and-replace/][emacsredux]]
+** eval and replace thanks to [[https://emacsredux.com/blog/2013/06/21/eval-and-replace/][emacsredux]]
 #+BEGIN_SRC emacs-lisp
   (defun eval-and-replace ()
     "Replace the preceding sexp with its value."
