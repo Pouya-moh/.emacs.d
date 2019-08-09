@@ -73,7 +73,7 @@ Hilight current line
 
 Wraping, maybe yes, maybe no, have to see...
 #+BEGIN_SRC emacs-lisp
-  (global-visual-line-mode 1)
+  ;(global-visual-line-mode 1)
 #+END_SRC
 
 Better change case courtesy of [[https://oremacs.com/2014/12/23/upcase-word-you-silly/][oremacs]].
@@ -109,8 +109,31 @@ Disable the background color when launching from termial
 ** buffer menu
 Use ibuffer with shortcut similar to sublime
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-S-p") 'ibuffer)
+  (global-set-key (kbd "C-x C-b") 'ibuffer) ;; this shortcut needs to be changed
+  (setq ibuffer-saved-filter-groups
+	'(("poo"
+	   ("dired" (mode . dired-mode))
+	   ("emacs" (or
+		     (name . "^\\*scratch\\*$")
+		     (name . "^\\*Messages\\*$")))
+	   ("Org" (mode . org-mode))
+	   ("Magit"  (or
+		      (mode . magit-mode)
+		      (derived-mode . magit-mode)))
+	   ("LaTeX" (or
+		      (mode . latex-mode)
+		      (mode . bibtex-mode)))
+	   ("Help" (or (name . "\*Help\*")
+		       (name . "\*Apropos\*")
+		       (name . "\*info\*"))))))
 
+
+  (add-hook 'ibuffer-mode-hook
+	    '(lambda ()
+	       ;(visual-line-mode nil)
+	       (ibuffer-switch-to-saved-filter-groups "poo")))
+
+  (setq ibuffer-show-empty-filter-groups nil)
 #+END_SRC
 
 ** move-lines
@@ -153,9 +176,10 @@ Use ibuffer with shortcut similar to sublime
 
 ** themeing
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/etc/yamt-theme")
+  ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/etc/yamt-theme")
   ;;(load-theme 'yamt)
-  (load-theme 'doom-vibrant)
+  ;;(load-theme 'doom-vibrant)
+  (load-theme 'doom-one-light)
 #+END_SRC
 
 ** activating inactive features
@@ -172,7 +196,7 @@ Narrowing
     :ensure t)
 #+END_SRC
 
-** Auctex
+** COMMENT Auctex
 Some info regarding auctex and use-package [[https://github.com/jwiegley/use-package/issues/379#issuecomment-246161500][here]] and [[https://github.com/jwiegley/use-package/issues/379#issuecomment-258217014][here]].
 #+BEGIN_SRC emacs-lisp
   (use-package tex
@@ -188,11 +212,15 @@ Some info regarding auctex and use-package [[https://github.com/jwiegley/use-pac
     (setq TeX-auto-save t)
     (setq font-latex-fontify-script nil)
     (setq TeX-error-overview-open-after-TeX-run t)
+    (setq reftex-ref-macro-prompt nil) ;; changes the way reftex ask for referenced. for pageref set to t
     (add-hook 'LaTeX-mode-hook
       (lambda ()
 	(reftex-mode 1)
+	(define-key reftex-mode-map (kbd "C-c r") 'hydra-reftex-menu/body)
 	(setq fill-column 80) ; or 80 or whatever
-      )
+	(flyspell-mode 1)
+	(flyspell-buffer)
+	(visual-line-mode 1)
     )
     ;; seting up pdf-tools:    
     (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
@@ -211,11 +239,12 @@ Some info regarding auctex and use-package [[https://github.com/jwiegley/use-pac
     ;; this line allows includegraphics autocompletion to look at local directories
     ;; of the root for files. more at https://emacs.stackexchange.com/a/14011/19426
     (setq LaTeX-includegraphics-read-file 'LaTeX-includegraphics-read-file-relative)
-  
+
     ;; shell-escape
     (add-to-list 'safe-local-variable-values
 		 '(TeX-command-extra-options . "-shell-escape"))
     ;(local-set-key [C-tab] 'TeX-complete-symbol)
+    ; (local-set-key [C-c C-r] 'hydra-reftex-menu/body)
   )
 #+END_SRC
 
@@ -430,6 +459,7 @@ This one seems interesting. I will see if I can use it with latex...
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/etc/wc-mode")
   (require 'wc-mode)
+  (require 'wc-doom-mode)
 #+END_SRC
 
 ** auto-gls-mode
@@ -446,7 +476,7 @@ I guess I finally decided to go with this one...
     :ensure t
     :config
     (setq company-idle-delay 0)
-    (setq company-minimum-prefix-length 2))
+    (setq company-minimum-prefix-length 1))
 
   (with-eval-after-load 'company
     (define-key company-active-map (kbd "M-n") nil)
@@ -507,6 +537,65 @@ I might replace this later with avy because it is maintained and more configurab
 	   ("M-g l" . ace-jump-line-mode)))
 #+END_SRC
 
+** hydra
+Seems interesting. Perhapse have to create a different el file for all the hydras.
+#+BEGIN_SRC emacs-lisp
+  (use-package hydra
+    :ensure t
+    :config
+    (add-to-list 'load-path "~/.emacs.d/etc/hydras"))
+    (load "all-hydras")
+#+END_SRC
+
+** c++
+with irony and company and we will see how it goes...
+#+BEGIN_SRC emacs-lisp :tangle no
+  ;; (add-hook 'c++-mode-hook 'yas-minor-mode)
+  ;; (add-hook 'c-mode-hook 'yas-minor-mode)
+
+  ;; (use-package flycheck-clang-analyzer
+  ;;   :ensure t
+  ;;   :config
+  ;;   (with-eval-after-load 'flycheck
+  ;;     (require 'flycheck-clang-analyzer)
+  ;;      (flycheck-clang-analyzer-setup)))
+
+  (with-eval-after-load 'company
+    (add-hook 'c++-mode-hook 'company-mode)
+    (add-hook 'c-mode-hook 'company-mode))
+
+  (use-package company-c-headers
+    :ensure t)
+
+  ;; (use-package company-irony
+  ;;   :ensure t
+  ;;   :config
+  ;;   (setq company-backends '((company-c-headers
+  ;; 			    company-dabbrev-code
+  ;; 			    company-irony))))
+
+  (use-package company-irony
+    :ensure t
+    :config
+    (setq company-backends '(company-irony)))
+
+  (use-package irony
+    :ensure t
+    :config
+    (add-hook 'c++-mode-hook 'irony-mode)
+    (add-hook 'c-mode-hook 'irony-mode)
+    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
+#+END_SRC
+
+** yasnippet
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :config
+    (use-package yasnippet-snippets
+      :ensure t))
+#+END_SRC
+
 
 * Useful snippets
 ** word repetition, taken from [[https://www.gnu.org/software/emacs/manual/html_node/eintr/the_002dthe.html][here]]. Although, it's a bit iffy...
@@ -561,6 +650,15 @@ Courtesy of [[https://www.emacswiki.org/emacs/CompleteFileName][emacs-wiki]], th
 				       try-complete-file-name)))
   (global-set-key "\M-/" 'my-complete-file-name)
 #+END_SRC
+
+** Some color options for themes
+   Particularly for doom-one-light
+   #+BEGIN_SRC emacs-lisp :tangle no
+  (custom-theme-set-faces 'doom-one-light
+			  `(org-level-1 ((t (:foreground "black" :bold t :height 1.1))))
+			  `(org-level-2 ((t (:foreground "black" :bold t :height 1.0))))
+			  `(default ((t (:background "#F9F9F9" :foreground "#13161B")))))
+   #+END_SRC
 
 
 * Packages to be considered
