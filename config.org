@@ -196,57 +196,57 @@ Narrowing
     :ensure t)
 #+END_SRC
 
-** COMMENT Auctex
-Some info regarding auctex and use-package [[https://github.com/jwiegley/use-package/issues/379#issuecomment-246161500][here]] and [[https://github.com/jwiegley/use-package/issues/379#issuecomment-258217014][here]].
-#+BEGIN_SRC emacs-lisp
-  (use-package tex
-    :defer t
-    :ensure auctex
-    :init
-    (setq reftex-plug-into-AUCTeX t)  
-    (setq TeX-source-correlate-mode t)
-    (setq TeX-source-correlate-method 'synctex)
-    (setenv "PATH" (concat "/usr/local/texlive/2018/bin/x86_64-linux:" (getenv "PATH")))
-    (setq exec-path (append exec-path '("/usr/local/texlive/2018/bin/x86_64-linux")))
-    :config
-    (setq TeX-auto-save t)
-    (setq font-latex-fontify-script nil)
-    (setq TeX-error-overview-open-after-TeX-run t)
-    (setq reftex-ref-macro-prompt nil) ;; changes the way reftex ask for referenced. for pageref set to t
-    (add-hook 'LaTeX-mode-hook
-      (lambda ()
-	(reftex-mode 1)
-	(define-key reftex-mode-map (kbd "C-c r") 'hydra-reftex-menu/body)
-	(setq fill-column 80) ; or 80 or whatever
-	(flyspell-mode 1)
-	(flyspell-buffer)
-	(visual-line-mode 1)
-    )
-    ;; seting up pdf-tools:    
-    (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
-      TeX-source-correlate-start-server t)
-    (add-hook 'TeX-after-compilation-finished-functions
-	      #'TeX-revert-document-buffer)
+** Auctex
+ Some info regarding auctex and use-package [[https://github.com/jwiegley/use-package/issues/379#issuecomment-246161500][here]] and [[https://github.com/jwiegley/use-package/issues/379#issuecomment-258217014][here]].
+ #+BEGIN_SRC emacs-lisp
+   (use-package tex
+     :defer t
+     :ensure auctex
+     :init
+     (setq reftex-plug-into-AUCTeX t)  
+     (setq TeX-source-correlate-mode t)
+     (setq TeX-source-correlate-method 'synctex)
+     (setenv "PATH" (concat "/usr/local/texlive/2018/bin/x86_64-linux:" (getenv "PATH")))
+     (setq exec-path (append exec-path '("/usr/local/texlive/2018/bin/x86_64-linux")))
+     :config
+     (setq TeX-auto-save t)
+     (setq font-latex-fontify-script nil)
+     (setq TeX-error-overview-open-after-TeX-run t)
+     (setq reftex-ref-macro-prompt nil) ;; changes the way reftex ask for referenced. for pageref set to t
+     (add-hook 'LaTeX-mode-hook
+       (lambda ()
+	 (reftex-mode 1)
+	 (define-key reftex-mode-map (kbd "C-c r") 'hydra-reftex-menu/body)
+	 (setq fill-column 80) ; or 80 or whatever
+	 (flyspell-mode 1)
+	 (flyspell-buffer)
+	 (visual-line-mode 1)
+     ))
+     ;; seting up pdf-tools:    
+     (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+       TeX-source-correlate-start-server t)
+     (add-hook 'TeX-after-compilation-finished-functions
+	       #'TeX-revert-document-buffer)
 
-    ;; this will reuse the existing frame when doing forward or backward
-    ;; search instead of opening/splitting a new one. credit goes to:
-    ;; https://github.com/politza/pdf-tools/pull/60#issuecomment-82872269
-    (setq pdf-sync-forward-display-action
-	  '(display-buffer-reuse-window (reusable-frames . t)))
-    (setq pdf-sync-backward-display-action
-	  '(display-buffer-reuse-window (reusable-frames . t)))
+     ;; this will reuse the existing frame when doing forward or backward
+     ;; search instead of opening/splitting a new one. credit goes to:
+     ;; https://github.com/politza/pdf-tools/pull/60#issuecomment-82872269
+     (setq pdf-sync-forward-display-action
+	   '(display-buffer-reuse-window (reusable-frames . t)))
+     (setq pdf-sync-backward-display-action
+	   '(display-buffer-reuse-window (reusable-frames . t)))
 
-    ;; this line allows includegraphics autocompletion to look at local directories
-    ;; of the root for files. more at https://emacs.stackexchange.com/a/14011/19426
-    (setq LaTeX-includegraphics-read-file 'LaTeX-includegraphics-read-file-relative)
+     ;; this line allows includegraphics autocompletion to look at local directories
+     ;; of the root for files. more at https://emacs.stackexchange.com/a/14011/19426
+     (setq LaTeX-includegraphics-read-file 'LaTeX-includegraphics-read-file-relative)
 
-    ;; shell-escape
-    (add-to-list 'safe-local-variable-values
-		 '(TeX-command-extra-options . "-shell-escape"))
-    ;(local-set-key [C-tab] 'TeX-complete-symbol)
-    ; (local-set-key [C-c C-r] 'hydra-reftex-menu/body)
-  )
-#+END_SRC
+     ;; shell-escape
+     (add-to-list 'safe-local-variable-values
+		  '(TeX-command-extra-options . "-shell-escape"))
+     ;(local-set-key [C-tab] 'TeX-complete-symbol)
+     ; (local-set-key [C-c C-r] 'hydra-reftex-menu/body)
+   )
+ #+END_SRC
 
 ** Bibtex
 For reindent and pretty printing the bib items
@@ -527,14 +527,23 @@ This package shows the number of search occurances in the modeline
     (global-anzu-mode +1))
 #+END_SRC
 
-** ace-jump
+** jumping around
 I might replace this later with avy because it is maintained and more configurable. But out of the bot I like ace more.
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package ace-jump-mode
     :ensure t
     :bind (("M-g w" . ace-jump-word-mode)
 	   ("M-g c" . ace-jump-char-mode)
 	   ("M-g l" . ace-jump-line-mode)))
+#+END_SRC
+
+Later has come. Trying avy now...
+#+BEGIN_SRC emacs-lisp
+    (use-package avy
+      :ensure t
+      :bind (("M-g w" . avy-goto-word-1)
+	     ("M-g c" . avy-goto-char)
+	     ("M-g l" . avy-goto-line)))
 #+END_SRC
 
 ** hydra
