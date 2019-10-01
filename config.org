@@ -466,7 +466,7 @@ This one seems interesting. I will see if I can use it with latex...
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/etc/wc-mode")
   (require 'wc-mode)
-  (require 'wc-doom-mode)
+  ;(require 'wc-doom-mode)
 #+END_SRC
 
 ** auto-gls-mode
