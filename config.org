@@ -180,6 +180,11 @@ Use ibuffer with shortcut similar to sublime
   ;;(load-theme 'yamt)
   ;;(load-theme 'doom-vibrant)
   (load-theme 'doom-one-light)
+  ;; tryig a new one
+  ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/etc/zaiste-emacs-theme")
+  ;;(load-theme 'zaiste)
+
+
 #+END_SRC
 
 ** activating inactive features
@@ -286,7 +291,8 @@ Snippet below attempts to download bib items from a doi but needs further work (
 #+BEGIN_SRC emacs-lisp
   (use-package multiple-cursors
     :ensure t
-    :bind (("C-d" . mc/mark-next-like-this)
+    :bind (("C->" . mc/mark-next-like-this)
+	   ("C-<" . mc/mark-previous-like-this)
 	   ("C-S-l" . mc/edit-lines)
 	  )
   )
@@ -358,9 +364,9 @@ Lets try again
   (use-package helm
     :ensure t
     :bind
-    ("C-x C-f" . 'helm-find-files)
-    ("C-x C-b" . 'helm-mini) ; C-Up/C-Down or C-c C-f to make it permanent
-    ("M-x" . 'helm-M-x)
+    ;("C-x C-f" . 'helm-find-files)
+    ("C-x b" . 'helm-mini) ; C-Up/C-Down or C-c C-f to make it permanent
+    ;("M-x" . 'helm-M-x)
     :config
     (setq helm-autoresize-max-height 30
 	  helm-autoresize-min-height 20
@@ -370,9 +376,10 @@ Lets try again
 	  helm-buffers-fuzzy-matching t
 	  helm-recentf-fuzzy-match t
 	  helm-semantic-fuzzy-match t
-	  helm-imenu-fuzzy-match t)
-    :init
-    (helm-mode 1))
+	  helm-imenu-fuzzy-match t))
+    ;:init
+    ;(helm-mode 1)
+    ;)
 
   (helm-autoresize-mode 1)
   (define-key helm-find-files-map "\t" 'helm-execute-persistent-action)
@@ -539,11 +546,15 @@ I might replace this later with avy because it is maintained and more configurab
 
 Later has come. Trying avy now...
 #+BEGIN_SRC emacs-lisp
-    (use-package avy
-      :ensure t
-      :bind (("M-g w" . avy-goto-word-1)
-	     ("M-g c" . avy-goto-char)
-	     ("M-g l" . avy-goto-line)))
+  (use-package avy
+    :ensure t
+    :config
+    ;;(setq avy-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)) ;default
+    (setq avy-keys '(?a ?s ?d ?f))
+    (setq avy-background t)
+    :bind (("M-g w" . avy-goto-word-1)
+	   ("M-g c" . avy-goto-char)
+	   ("M-g l" . avy-goto-line)))
 #+END_SRC
 
 ** hydra
@@ -601,6 +612,7 @@ with irony and company and we will see how it goes...
   (use-package yasnippet
     :ensure t
     :config
+    (setq yas-triggers-in-field t)
     (use-package yasnippet-snippets
       :ensure t))
 #+END_SRC
