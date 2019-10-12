@@ -53,7 +53,9 @@ EOL but rather to end of the paragraph.
 
 Set cursor as bar
 #+BEGIN_SRC emacs-lisp
-  (setq-default cursor-type 'bar)
+  ;(setq-default cursor-type 'bar)
+  (setq-default cursor-type 'box)
+  (blink-cursor-mode 0) ;;disable the blink
 #+END_SRC
 
 Focus to help window so that after, e.g., ~descrive-variable~, I could hit ~q~ to exit easily:
