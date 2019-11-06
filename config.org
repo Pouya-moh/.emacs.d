@@ -572,7 +572,7 @@ Seems interesting. Perhapse have to create a different el file for all the hydra
 
 ** c++
 with irony and company and we will see how it goes...
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
   ;; (add-hook 'c++-mode-hook 'yas-minor-mode)
   ;; (add-hook 'c-mode-hook 'yas-minor-mode)
 
@@ -626,6 +626,7 @@ which is mostly needed for org-mode export to html
 (use-package htmlize
    :ensure t)
 #+END_SRC
+
 
 * Useful snippets
 ** word repetition, taken from [[https://www.gnu.org/software/emacs/manual/html_node/eintr/the_002dthe.html][here]]. Although, it's a bit iffy...
