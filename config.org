@@ -634,8 +634,14 @@ The ~.el~ file is from the Kitware's official [[https://github.com/Kitware/CMake
     (make-directory "~/.emacs.d/etc/cmake-mode")
     (url-copy-file "https://raw.githubusercontent.com/Kitware/CMake/master/Auxiliary/cmake-mode.el" "~/.emacs.d/etc/cmake-mode/cmake-mode.el" t))
 
-  (add-to-list 'load-path "~/.emacs.d/etc/cmake-mode")
+  (setq load-path (cons (expand-file-name "~/.emacs.d/etc/cmake-mode") load-path))
+  (require 'cmake-mode)
+  (setq auto-mode-alist
+	(append '(("CMakeLists\\.txt\\'" . cmake-mode)
+		  ("\\.cmake\\'" . cmake-mode))
+		auto-mode-alist))
 #+END_SRC
+
 
 * Useful snippets
 ** word repetition, taken from [[https://www.gnu.org/software/emacs/manual/html_node/eintr/the_002dthe.html][here]]. Although, it's a bit iffy...
