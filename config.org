@@ -627,6 +627,15 @@ which is mostly needed for org-mode export to html
    :ensure t)
 #+END_SRC
 
+** cmake-mode
+The ~.el~ file is from the Kitware's official [[https://github.com/Kitware/CMake/blob/master/Auxiliary/cmake-mode.el][cmake-mode.el]] which tries to bootstrap it.
+#+BEGIN_SRC emacs-lisp
+  (unless (file-directory-p "~/.emacs.d/etc/cmake-mode")
+    (make-directory "~/.emacs.d/etc/cmake-mode")
+    (url-copy-file "https://raw.githubusercontent.com/Kitware/CMake/master/Auxiliary/cmake-mode.el" "~/.emacs.d/etc/cmake-mode/cmake-mode.el" t))
+
+  (add-to-list 'load-path "~/.emacs.d/etc/cmake-mode")
+#+END_SRC
 
 * Useful snippets
 ** word repetition, taken from [[https://www.gnu.org/software/emacs/manual/html_node/eintr/the_002dthe.html][here]]. Although, it's a bit iffy...
