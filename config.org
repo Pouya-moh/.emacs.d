@@ -573,41 +573,82 @@ Seems interesting. Perhapse have to create a different el file for all the hydra
 ** c++
 with irony and company and we will see how it goes...
 #+BEGIN_SRC emacs-lisp
-  ;; (add-hook 'c++-mode-hook 'yas-minor-mode)
-  ;; (add-hook 'c-mode-hook 'yas-minor-mode)
+  (add-hook 'c++-mode-hook 'yas-minor-mode)
+  (add-hook 'c-mode-hook 'yas-minor-mode)
 
-  ;; (use-package flycheck-clang-analyzer
-  ;;   :ensure t
-  ;;   :config
-  ;;   (with-eval-after-load 'flycheck
-  ;;     (require 'flycheck-clang-analyzer)
-  ;;      (flycheck-clang-analyzer-setup)))
+  ;; overwrite the annoying tab size
+  (setq c-basic-offset 4)
 
-  (with-eval-after-load 'company
-    (add-hook 'c++-mode-hook 'company-mode)
-    (add-hook 'c-mode-hook 'company-mode))
+  ;;; *based on* https://github.com/Andersbakken/rtags/issues/1340
 
-  (use-package company-c-headers
+  ;; rags:
+  (use-package rtags
+    :ensure t
+    :config
+    (setq rtags-find-file-case-insensitive t)
+    (setq rtags-symbolnames-case-insensitive t)
+    (setq rtags-autostart-diagnostics t)
+    ;; don't know about this one
+    ;(setq rtags-timeout 1100)
+    ;; trying to use irony completion
+    (setq rtags-completions-enabled t)
+    ;; don't konw about this one either
+    ;(rtags-set-periodic-reparse-timeout 1.8)
+
+
+    (define-key c-mode-base-map (kbd "M-.") #'rtags-find-symbol-at-point)
+    (define-key c-mode-base-map (kbd "M-,") #'rtags-find-references-at-point)
+    (define-key c-mode-base-map (kbd "M-;") #'rtags-find-file)
+    (define-key c-mode-base-map (kbd "C-.") #'rtags-find-symbol)
+    (define-key c-mode-base-map (kbd "C-,") #'rtags-find-references)
+    (define-key c-mode-base-map (kbd "C-<") #'rtags-find-virtuals-at-point)
+    (define-key c-mode-base-map (kbd "M-i") #'rtags-imenu)
+
+    )
+
+  (use-package company-rtags
+    :ensure t
+    :defer)
+
+  ;; TODO: fix the colors for warnings
+  (use-package flycheck-rtags
+    :ensure t
+    :after rtags
+    :init
+    (defun my-flycheck-rtags-setup ()
+      (flycheck-select-checker 'rtags)
+      (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
+      (setq-local flycheck-check-syntax-automatically nil)
+      (flycheck-mode t))
+    :config
+    (add-hook 'c++-mode-hook #'my-flycheck-rtags-setup)
+    (add-hook 'c-mode-hook #'my-flycheck-rtags-setup)
+  )
+
+  (use-package flycheck
     :ensure t)
 
-  ;; (use-package company-irony
-  ;;   :ensure t
-  ;;   :config
-  ;;   (setq company-backends '((company-c-headers
-  ;; 			    company-dabbrev-code
-  ;; 			    company-irony))))
 
-  (use-package company-irony
+  ;; TODO: set build directory reletive to current project
+  (use-package cmake-ide
     :ensure t
+    :after cc-mode
     :config
-    (setq company-backends '(company-irony)))
+    (cmake-ide-setup)
+    )
 
-  (use-package irony
-    :ensure t
-    :config
-    (add-hook 'c++-mode-hook 'irony-mode)
-    (add-hook 'c-mode-hook 'irony-mode)
-    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
+  ;;; setting company stuff from https://lupan.pl/dotemacs/
+  (defun set-company-backends ()
+    ;(delete 'company-backends 'company-clang)
+    (setq company-backends (delete 'company-clang company-backends))
+    (add-to-list 'company-backends 'company-c-headers)
+    (set (make-local-variable 'company-backends) '(company-rtags))
+    (company-mode)
+    )
+
+
+  (add-hook 'c-mode-hook #'set-company-backends)
+  (add-hook 'c++-mode-hook #'set-company-backends)
 #+END_SRC
 
 ** yasnippet
