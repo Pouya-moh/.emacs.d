@@ -146,11 +146,12 @@ Use ibuffer with shortcut similar to sublime
   (global-set-key (kbd "<C-S-down>") 'move-lines-down)
 #+END_SRC
 
-** tab-size
+** tabs
 #+BEGIN_SRC emacs-lisp
   ;(setq tab-width 4) ; or any other preferred value
   ;(defvaralias 'c-basic-offset 'tab-width)
   ;(defvaralias 'cperl-indent-level 'tab-width)
+  (setq-default indent-tabs-mode nil)
 #+END_SRC
 
 ** duplicate line
