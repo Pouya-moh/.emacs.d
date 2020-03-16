@@ -563,7 +563,7 @@ Later has come. Trying avy now...
     (setq avy-background t)
     (setq avy-case-fold-search nil)
     :bind (("M-g w" . avy-goto-word-1)
-	   ("M-g c" . avy-goto-char)
+	   ("M-g c" . avy-goto-char-2)
 	   ("M-g l" . avy-goto-line)))
 #+END_SRC
 
