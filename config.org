@@ -396,6 +396,7 @@ Lets try again
 
 ** Predictive mode
 I really like this. It is fast and rather helpfull when writing text, e.g., Latex, but it is paint to install. If it is installed, then I like to use the following shortcuts. [[http://www.dr-qubit.org/predictive/predictive-user-manual/predictive-user-manual.pdf][Manual]]
+Also, 97ba1dd47beaef4b1b44a532e362d66872219d1b is a working commit...
 #+BEGIN_SRC emacs-lisp
   (if (eq system-type 'gnu/linux)
       (progn
