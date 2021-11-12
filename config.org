@@ -1,5 +1,5 @@
 * Requirements
-Packages from melpa should be automatically downloaded, thanks to
+  Packages from melpa should be automatically downloaded, thanks to
 use-package. There are however, couple of packages and snippets which
 are not in any package repository. They need to be downloaded manually
 first. Ideally, I want these stuff to be bootstraped like the rest
@@ -37,7 +37,7 @@ Disable startup screen
 
 Deafult startup directory
 #+BEGIN_SRC emacs-lisp
-  (setq default-directory "~/.emacs.d/")
+  (setq default-directory "~/")
 #+END_SRC
 
 Shortcut for `ffap`
@@ -181,8 +181,11 @@ Use ibuffer with shortcut similar to sublime
 #+BEGIN_SRC emacs-lisp
   ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/etc/yamt-theme")
   ;;(load-theme 'yamt)
-  ;;(load-theme 'doom-vibrant)
-  (load-theme 'doom-one-light)
+  ;;(load-theme 'doom-vibrant) ;dark
+  ;;(load-theme 'doom-one-light)
+  ;;(load-theme 'doom-city-lights)
+  (load-theme 'doom-acario-light) ;light
+  ;;(load-theme 'doom-tomorrow-day)
   ;; tryig a new one
   ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/etc/zaiste-emacs-theme")
   ;;(load-theme 'zaiste)
@@ -194,6 +197,11 @@ Use ibuffer with shortcut similar to sublime
 Narrowing
 #+BEGIN_SRC emacs-lisp
   (put 'narrow-to-region 'disabled nil)
+#+END_SRC
+
+** Line numbers
+#+BEGIN_SRC emacs-lisp
+    (add-hook 'prog-mode-hook (lambda () (setq display-line-numbers 'relative)))
 #+END_SRC
 
 
@@ -214,8 +222,8 @@ Narrowing
      (setq reftex-plug-into-AUCTeX t)  
      (setq TeX-source-correlate-mode t)
      (setq TeX-source-correlate-method 'synctex)
-     (setenv "PATH" (concat "/usr/local/texlive/2018/bin/x86_64-linux:" (getenv "PATH")))
-     (setq exec-path (append exec-path '("/usr/local/texlive/2018/bin/x86_64-linux")))
+     (setenv "PATH" (concat "/usr/local/texlive/2020/bin/x86_64-linux:" (getenv "PATH")))
+     (setq exec-path (append exec-path '("/usr/local/texlive/2020/bin/x86_64-linux")))
      :config
      (setq TeX-auto-save t)
      (setq font-latex-fontify-script nil)
@@ -331,12 +339,20 @@ Snippet below attempts to download bib items from a doi but needs further work (
   )
 #+END_SRC
 ** rainbow
-rainbow-mode and maybe (in the future) rainbow brackets
+rainbow-mode and
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-mode
     :ensure t
     :hook prog-mode)
 #+END_SRC 
+for the brakcets:
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters
+    :ensure t
+    :init
+  (progn
+    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)))
+#+END_SRC
 ** decoration
 Highlight numbers
 #+BEGIN_SRC emacs-lisp
@@ -347,7 +363,7 @@ Highlight numbers
 #+END_SRC
 ** Org mode stuff
 Syntax highlighting for code blocks:
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (setq org-src-fontify-natively t)
 #+END_SRC
 
@@ -397,7 +413,7 @@ Lets try again
 ** Predictive mode
 I really like this. It is fast and rather helpfull when writing text, e.g., Latex, but it is paint to install. If it is installed, then I like to use the following shortcuts. [[http://www.dr-qubit.org/predictive/predictive-user-manual/predictive-user-manual.pdf][Manual]]
 Also, 97ba1dd47beaef4b1b44a532e362d66872219d1b is a working commit...
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (if (eq system-type 'gnu/linux)
       (progn
 	(message "Setting predictive path...")
@@ -435,7 +451,7 @@ In the future I will check paredit, but for the moment:
 #+END_SRC
 ** diminish
 This can be done directly with the ~use-package~ but I do it like this:
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package diminish
     :ensure t
     :init
@@ -473,7 +489,7 @@ This one seems interesting. I will see if I can use it with latex...
 #+END_SRC
 
 ** wc-mode
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (add-to-list 'load-path "~/.emacs.d/etc/wc-mode")
   (require 'wc-mode)
   ;(require 'wc-doom-mode)
@@ -481,14 +497,14 @@ This one seems interesting. I will see if I can use it with latex...
 
 ** auto-gls-mode
 This package automatically adds the glossaries macro to acronyms
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (add-to-list 'load-path "~/.emacs.d/etc/auto-glossaries-mode")
   (require 'auto-glossaries-mode)
 #+END_SRC
 
 ** company
 I guess I finally decided to go with this one...
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package company
     :ensure t
     :config
@@ -507,15 +523,27 @@ I guess I finally decided to go with this one...
 ** python stuff
 I will do python using elpy. Documenation at [[https://github.com/jorgenschaefer/elpy][github-page]] and [[https://elpy.readthedocs.io/en/latest/ide.html][read-the-docs]].
 #+BEGIN_SRC emacs-lisp
-  (use-package elpy
-    :ensure t
-    :defer t
-    :init
-    (advice-add 'python-mode :before 'elpy-enable)
-    :config
-    (setq elpy-rpc-python-command "python3")
-    (setq python-shell-interpreter "ipython"
-	python-shell-interpreter-args "-i --simple-prompt"))
+
+    (use-package highlight-indent-guides
+      :ensure t
+      :config
+      (setq highlight-indent-guides-method 'character)
+      :hook (python-mode . highlight-indent-guides-mode))
+
+    (use-package jedi
+    :ensure t)  
+
+    (use-package elpy
+      :ensure t
+      :defer t
+      :init
+      (advice-add 'python-mode :before 'elpy-enable)
+      :config
+      (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules))
+      (setq elpy-rpc-python-command "python3")
+      (setq elpy-rpc-backend "jedi")
+      (setq python-shell-interpreter "ipython"
+          python-shell-interpreter-args "-i --simple-prompt"))
 #+END_SRC
 
 ** doom linemode setup
@@ -559,8 +587,8 @@ Later has come. Trying avy now...
   (use-package avy
     :ensure t
     :config
-    ;;(setq avy-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)) ;default
-    (setq avy-keys '(?a ?s ?d ?f))
+    (setq avy-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)) ;default
+    ;;(setq avy-keys '(?a ?s ?d ?f))
     (setq avy-background t)
     (setq avy-case-fold-search nil)
     :bind (("M-g w" . avy-goto-word-1)
@@ -570,7 +598,7 @@ Later has come. Trying avy now...
 
 ** hydra
 Seems interesting. Perhapse have to create a different el file for all the hydras.
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package hydra
     :ensure t
     :config
@@ -578,9 +606,9 @@ Seems interesting. Perhapse have to create a different el file for all the hydra
     (load "all-hydras")
 #+END_SRC
 
-** c++
+** c++ 
 with irony and company and we will see how it goes...
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (add-hook 'c++-mode-hook 'yas-minor-mode)
   (add-hook 'c-mode-hook 'yas-minor-mode)
 
@@ -664,7 +692,7 @@ with irony and company and we will see how it goes...
 #+END_SRC
 
 ** yasnippet
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package yasnippet
     :ensure t
     :config
@@ -682,7 +710,7 @@ which is mostly needed for org-mode export to html
 
 ** cmake-mode
 The ~.el~ file is from the Kitware's official [[https://github.com/Kitware/CMake/blob/master/Auxiliary/cmake-mode.el][cmake-mode.el]] which tries to bootstrap it.
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (unless (file-directory-p "~/.emacs.d/etc/cmake-mode")
     (make-directory "~/.emacs.d/etc/cmake-mode")
     (url-copy-file "https://raw.githubusercontent.com/Kitware/CMake/master/Auxiliary/cmake-mode.el" "~/.emacs.d/etc/cmake-mode/cmake-mode.el" t))
@@ -743,7 +771,7 @@ The ~.el~ file is from the Kitware's official [[https://github.com/Kitware/CMake
 
 ** Complete file names
 Courtesy of [[https://www.emacswiki.org/emacs/CompleteFileName][emacs-wiki]], this helps to complete file names in buffer. Should be called repeatedly thgouh...
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (fset 'my-complete-file-name
 	(make-hippie-expand-function '(try-complete-file-name-partially
 				       try-complete-file-name)))
